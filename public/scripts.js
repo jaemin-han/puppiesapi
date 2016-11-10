@@ -13,12 +13,30 @@ function adoptPuppy(payload) {
   });
 }
 
-function likePuppy() {
+function likePuppy(p) {
   // Implement liking a puppy here.
+  let id = parseInt(p.target.id);
+  console.log(id);
+  // Implement liking a puppy here.
+  return fetch(`/api/puppies/${id}`, {
+    headers: {
+      'Content-type': 'application/json'
+    },
+    method: 'PUT',
+  });
 }
 
-function abandonPuppy() {
+function abandonPuppy(p) {
   // Implement abandoning a puppy here :(
+  let id = parseInt(p.target.id);
+  console.log(id);
+  // Implement liking a puppy here.
+  return fetch(`/api/puppies/${id}`, {
+    headers: {
+      'Content-type': 'application/json'
+    },
+    method: 'DELETE',
+  });
 }
 
 
@@ -42,16 +60,30 @@ function renderPuppies(puppies) {
       .find('.puppy-picture img')
       .attr('src', puppies[i].url);
 
+  // $container.append($newPuppy);
+
     // You should add a button for liking here
+    const $newButton = $('<button>').text('like');
+    $newButton.attr('id', puppies[i].id);
+    $newButton.on('click', likePuppy);
+
+    $newPuppy.append($newButton);
+    $container.append($newPuppy);
 
     // you should add a button for abandoning here
+    const $deleteButton = $('<button>').text('delete');
+    $deleteButton.attr('id', puppies[i].id);
+    $deleteButton.on('click', abandonPuppy);
 
+    $newPuppy.append($deleteButton);
     $container.append($newPuppy);
+
   }
 }
 
 function registerLikeButtonHandler() {
   // implement like button listener here.
+
 }
 
 function registerAbandonButtonHandler() {
